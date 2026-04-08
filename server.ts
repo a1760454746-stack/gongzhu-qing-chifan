@@ -2,23 +2,11 @@ import express from 'express';
 import { createServer as createViteServer } from 'vite';
 import fs from 'fs';
 import path from 'path';
-import nodemailer from 'nodemailer';
 
 const app = express();
 app.use(express.json());
 
 const DB_FILE = path.resolve('db.json');
-
-// Email Transporter Setup
-const transporter = nodemailer.createTransport({
-  host: 'smtp.qq.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.QQ_EMAIL_USER,
-    pass: process.env.QQ_EMAIL_PASS,
-  },
-});
 
 function readDB() {
   if (fs.existsSync(DB_FILE)) {
@@ -38,7 +26,32 @@ function writeDB(data: any) {
 // Ensure DB exists
 readDB();
 
+// ==========================================
+// Helper function for PushPlus WeChat Notifications
+// ==========================================
+function sendPushPlusNotification(token: string, title: string, content: string) {
+  if (!token) return;
+  fetch('http://www.pushplus.plus/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      token: token,
+      title: title,
+      content: content,
+      template: 'html'
+    })
+  }).catch(console.error);
+}
+
+// ==========================================
 // API Routes
+// ==========================================
+
+// 1. Health Check Route (For UptimeRobot Keep-Alive)
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok', time: new Date().toISOString() });
+});
+
 app.get('/api/restaurants', (req, res) => {
   const db = readDB();
   res.json(db.restaurants);
@@ -70,15 +83,14 @@ app.post('/api/orders', (req, res) => {
   db.orders.push(newOrder);
   writeDB(db);
   
-  // Send Email to Boyfriend
-  if (process.env.QQ_EMAIL_USER && process.env.QQ_EMAIL_PASS) {
-    const itemsText = newOrder.items.map((i: any) => `${i.name} x${i.quantity}`).join('\n');
-    transporter.sendMail({
-      from: process.env.QQ_EMAIL_USER,
-      to: process.env.QQ_EMAIL_USER,
-      subject: '【专属外卖】宝贝下单啦！',
-      text: `宝贝刚刚下了一个新订单！\n\n餐厅：${newOrder.restaurantName}\n内容：\n${itemsText}\n\n快去控制台接单吧！`
-    }).catch(console.error);
+  // Send WeChat Notification to Boyfriend when order is placed
+  if (process.env.PUSHPLUS_TOKEN) {
+    const itemsText = newOrder.items.map((i: any) => `${i.name} x${i.quantity}`).join('<br/>');
+    sendPushPlusNotification(
+      process.env.PUSHPLUS_TOKEN,
+      '【专属外卖】宝贝下单啦！',
+      `<strong>餐厅：</strong>${newOrder.restaurantName}<br/><br/><strong>内容：</strong><br/>${itemsText}<br/><br/>快去控制台接单吧！`
+    );
   }
 
   res.json(newOrder);
@@ -87,26 +99,40 @@ app.post('/api/orders', (req, res) => {
 app.patch('/api/orders/:id', (req, res) => {
   const db = readDB();
   const orderIndex = db.orders.findIndex((o: any) => o.id === req.params.id);
+  
   if (orderIndex > -1) {
     db.orders[orderIndex] = { ...db.orders[orderIndex], ...req.body };
     writeDB(db);
     
-    // Send Email to Girlfriend if completed
-    if (req.body.status === 'completed' && process.env.GF_EMAIL && process.env.QQ_EMAIL_USER) {
-      transporter.sendMail({
-        from: process.env.QQ_EMAIL_USER,
-        to: process.env.GF_EMAIL,
-        subject: '【专属外卖】你的外卖送达啦！',
-        text: `亲爱的宝贝，你的外卖（${db.orders[orderIndex].restaurantName}）已经送达啦！快去享用吧~ 爱你哦！❤️`
-      }).catch(console.error);
+    const updatedOrder = db.orders[orderIndex];
+
+    // Send WeChat Notification to Girlfriend if accepted
+    if (req.body.status === 'accepted' && process.env.GF_PUSHPLUS_TOKEN) {
+      sendPushPlusNotification(
+        process.env.GF_PUSHPLUS_TOKEN,
+        '【专属外卖】骑手已接单！',
+        `亲爱的宝贝，你的外卖（<strong>${updatedOrder.restaurantName}</strong>）已被专属骑手接单啦！正在火速准备中~ 🛵💨`
+      );
     }
 
-    res.json(db.orders[orderIndex]);
+    // Send WeChat Notification to Girlfriend if completed
+    if (req.body.status === 'completed' && process.env.GF_PUSHPLUS_TOKEN) {
+      sendPushPlusNotification(
+        process.env.GF_PUSHPLUS_TOKEN,
+        '【专属外卖】外卖已送达！',
+        `亲爱的宝贝，你的外卖（<strong>${updatedOrder.restaurantName}</strong>）已经送达啦！快去享用吧~ 爱你哦！❤️`
+      );
+    }
+
+    res.json(updatedOrder);
   } else {
     res.status(404).json({ error: 'Order not found' });
   }
 });
 
+// ==========================================
+// Server Setup
+// ==========================================
 async function startServer() {
   const PORT = 3000;
 
