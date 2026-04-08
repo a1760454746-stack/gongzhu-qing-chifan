@@ -668,58 +668,58 @@
       "menu": [
         {
           "id": "m5_0",
-          "name": "经典辣堡双人餐8件套",
+          "name": "4味小食拼盘",
           "price": 0,
-          "image": "img/583f3a6a14dba3324718378185c9b76a.jpg",
-          "desc": "香辣鸡腿堡+热辣香骨鸡+薯条+黄金鸡块+蛋挞+可乐+新奥尔良烤鸡腿堡"
+          "image": "https://img30.360buyimg.com/popshop/s414x414_jfs/t1/398199/8/11672/189245/69a745f7Fcae7901b/00ac3203206ff2ac.jpg",
+          "desc": "新奥尔良烤翅2块+黄金鸡块5块+劲爆鸡米花（小）1份+薯条（小）1份。"
         },
         {
           "id": "m5_1",
           "name": "5味超值炸鸡桶",
           "price": 0,
-          "image": "/img/795a7aa69355e5e6518b0ad5ee46b68a.jpg",
+          "image": "https://img30.360buyimg.com/popshop/s414x414_jfs/t1/398779/6/11078/218656/69a745f7F47d8116e/00ac32032014ad21.jpg",
           "desc": "热辣香骨鸡*3+黄金鸡块*5+劲爆鸡米花+原味鸡块+香辣鸡翅*2"
         },
         {
           "id": "m5_2",
           "name": "全鸡可乐1+1",
           "price": 0,
-          "image": "img/53e7c3253ffb11c5fa0b84b9146532e1.jpg",
+          "image": "https://img30.360buyimg.com/popshop/s414x414_jfs/t1/412751/3/219/193093/69c98d9fF0abee417/00ac320320eb51b0.jpg",
           "desc": "招牌秘汁全鸡+可乐"
         },
         {
           "id": "m5_3",
           "name": "招牌翅筒",
           "price": 0,
-          "image": "img/0c73411fee73a59f40d3e1c3ba241e35.jpg",
+          "image": "https://img30.360buyimg.com/popshop/s414x414_jfs/t1/407325/20/6632/163661/69c052e4F0a926126/00ac3203200bb469.jpg",
           "desc": "薄脆金沙鸡翅*2+新奥尔良烤翅*4+香辣鸡翅*2"
         },
         {
           "id": "m5_4",
           "name": "香辣鸡翅*2",
           "price": 0,
-          "image": "img/bbee365a83d87be5098c2d74a8831e3a.jpg",
+          "image": "https://img30.360buyimg.com/popshop/s414x414_jfs/t1/395200/9/18325/199191/69a5c16aFb793b8cf/00ac32032018f3a0.jpg",
           "desc": "鲜嫩多汁"
         },
         {
           "id": "m5_5",
           "name": "劲爆鸡米花",
           "price": 0,
-          "image": "img/7622b65bcbcf6e74e7af42d0d70c6d3e.jpg",
+          "image": "https://img30.360buyimg.com/popshop/s414x414_jfs/t1/416927/27/1688/150067/69d56aa3F1d54971d/00ac320320ebb32d.jpg",
           "desc": "外酥里嫩"
         },
         {
           "id": "m5_6",
           "name": "老北京鸡肉卷",
           "price": 0,
-          "image": "img/8496f2db4a951ebe023fbe61f3e90bb2.jpg",
+          "image": "https://img30.360buyimg.com/popshop/s414x414_jfs/t1/397901/26/11607/162454/69a5c160F4a022d4b/00ac3203205e97a4.jpg",
           "desc": "经典美味"
         },
         {
           "id": "m5_7",
           "name": "葡式蛋挞",
           "price": 0,
-          "image": "img/dfa47d86db008357bfcb6203ece76437.jpg",
+          "image": "https://img30.360buyimg.com/popshop/s414x414_jfs/t1/395776/30/17110/130270/69a5c16aFcdc013ce/00ac320320dac52e.jpg",
           "desc": "蛋挞*1"
         },
         {
@@ -733,7 +733,7 @@
           "id": "m5_9",
           "name": "红豆派",
           "price": 0,
-          "image": "img/107b381dd05023e83963fae15e862d60.jpg",
+          "image": "https://img30.360buyimg.com/popshop/s414x414_jfs/t1/400470/21/4656/115668/69a5c035F4a4d97e9/00ac320320c83dc0.jpg",
           "desc": "酥脆香甜"
         }
       ]
