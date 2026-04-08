@@ -45,7 +45,7 @@ export default function GFHome() {
           />
           <div className="flex items-center gap-2 text-gray-800 mb-4 relative z-10">
             <MapPin className="w-5 h-5" />
-            <span className="font-bold text-lg">宝贝的专属小窝</span>
+            <span className="font-bold text-lg">咪咪的专属小窝</span>
           </div>
 {/*           
           <motion.div 
