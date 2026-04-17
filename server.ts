@@ -111,7 +111,7 @@ app.patch('/api/orders/:id', (req, res) => {
       sendPushPlusNotification(
         process.env.GF_PUSHPLUS_TOKEN,
         '【专属外卖】骑手已接单！',
-        `亲爱的咪，你的外卖（<strong>${updatedOrder.restaurantName}</strong>）已被专属骑手接单啦！正在火速准备中~ 🛵💨`
+        `亲爱的咪，你的外卖（<strong>${updatedOrder.restaurantName}</strong>）已被专属骑手接单啦！正在火速准备中~ 🛵💨，先别生气了，宝宝有什么事都51再说吧，我们51一定要见面，爱你`
       );
     }
 
@@ -120,7 +120,7 @@ app.patch('/api/orders/:id', (req, res) => {
       sendPushPlusNotification(
         process.env.GF_PUSHPLUS_TOKEN,
         '【专属外卖】外卖已送达！',
-        `亲爱的咪，你的外卖（<strong>${updatedOrder.restaurantName}</strong>）已经投喂完成啦！快去享用吧~ 爱你哦！❤️`
+        `亲爱的咪，你的外卖（<strong>${updatedOrder.restaurantName}</strong>）已经投喂完成啦！快去享用吧~ 爱你哦！❤️，先别生气了，宝宝有什么事都51再说吧，我们51一定要见面，爱你`
       );
     }
 
